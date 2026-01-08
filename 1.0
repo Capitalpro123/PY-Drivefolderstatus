@@ -1,0 +1,159 @@
+# drive_report.py
+# Generate status report for folder structures with treeview
+import os
+from pathlib import Path
+from datetime import datetime
+from collections import defaultdict
+def format_size(bytes):
+"""Convert bytes to human readable"""
+for unit in ['B', 'KB', 'MB', 'GB']:
+if bytes < 1024:
+return f"{bytes:.2f} {unit}"
+bytes /= 1024
+return f"{bytes:.2f} TB"
+
+def generate_treeview(root_path, prefix=""):
+"""Generate complete recursive treeview of folder structure"""
+lines = []
+try:
+entries = sorted(os.listdir(root_path))
+dirs = [e for e in entries if os.path.isdir(os.path.join(root_path, e))]
+files = [e for e in entries if os.path.isfile(os.path.join(root_path, e))]
+all_entries = dirs + files
+# Show directories first, then files
+for i, dir_name in enumerate(dirs):
+is_last = (i == len(dirs) - 1) and len(files) == 0
+connector = "└── " if is_last else "├── "
+lines.append(f"{prefix}{connector}📁 {dir_name}/")
+
+extension = " " if is_last else "│ "
+sub_lines = generate_treeview(
+os.path.join(root_path, dir_name),
+prefix + extension
+)
+lines.extend(sub_lines)
+# Show all files
+for i, file_name in enumerate(files):
+is_last = (i == len(files) - 1)
+connector = "└── " if is_last else "├── "
+lines.append(f"{prefix}{connector}📄 {file_name}")
+except PermissionError:
+lines.append(f"{prefix}[Permission Denied]")
+return lines
+
+def scan_folder(root_path):
+"""Scan folder and collect all statistics"""
+stats = {
+'total_files': 0,
+'total_folders': 0,
+'total_size': 0,
+'extensions': defaultdict(lambda: {'count': 0, 'size': 0}),
+'largest_files': [],
+'recent_files': [],
+'folder_sizes': {}
+}
+all_files = []
+for root, dirs, files in os.walk(root_path):
+stats['total_folders'] += len(dirs)
+folder_size = 0
+for file in files:
+filepath = os.path.join(root, file)
+try:
+file_stat = os.stat(filepath)
+size = file_stat.st_size
+mtime = datetime.fromtimestamp(file_stat.st_mtime)
+ext = Path(file).suffix.lower() or '(no ext)'
+stats['total_files'] += 1
+stats['total_size'] += size
+stats['extensions'][ext]['count'] += 1
+
+stats['extensions'][ext]['size'] += size
+folder_size += size
+all_files.append({
+'name': file,
+'path': filepath,
+'size': size,
+'modified': mtime
+})
+except (OSError, PermissionError):
+continue
+rel_path = os.path.relpath(root, root_path)
+stats['folder_sizes'][rel_path] = folder_size
+# Top 10 largest files
+stats['largest_files'] = sorted(all_files, key=lambda x: x['size'], reverse=True)
+# Top 10 recent files
+stats['recent_files'] = sorted(all_files, key=lambda x: x['modified'], reverse=Tr
+return stats
+
+def generate_report(root_path, stats, treeview):
+"""Generate complete TXT report"""
+lines = []
+lines.append("=" * 70)
+lines.append("DRIVE FOLDER STATUS REPORT")
+lines.append("=" * 70)
+lines.append(f"Root: {root_path}")
+lines.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+lines.append("")
+# Summary
+lines.append("-" * 50)
+lines.append("SUMMARY")
+lines.append("-" * 50)
+lines.append(f" Total Folders: {stats['total_folders']:,}")
+lines.append(f" Total Files: {stats['total_files']:,}")
+lines.append(f" Total Size: {format_size(stats['total_size'])}")
+lines.append("")
+# Treeview
+lines.append("-" * 50)
+lines.append("FOLDER STRUCTURE")
+lines.append("-" * 50)
+lines.append(f"📁 {os.path.basename(root_path)}/")
+
+lines.extend(treeview)
+lines.append("")
+# Files by type
+lines.append("-" * 50)
+lines.append("FILES BY TYPE")
+lines.append("-" * 50)
+sorted_ext = sorted(stats['extensions'].items(), key=lambda x: x[1]['count'], rev
+for ext, data in sorted_ext:
+lines.append(f" {ext:12} {data['count']:>6} files {format_size(data['size
+lines.append("")
+# Largest files
+lines.append("-" * 50)
+lines.append("LARGEST FILES")
+lines.append("-" * 50)
+for f in stats['largest_files']:
+lines.append(f" {format_size(f['size']):>12} {f['name']}")
+lines.append("")
+# Recent files
+lines.append("-" * 50)
+lines.append("RECENTLY MODIFIED")
+lines.append("-" * 50)
+for f in stats['recent_files']:
+lines.append(f" {f['modified'].strftime('%Y-%m-%d %H:%M')} {f['name']}")
+lines.append("")
+lines.append("=" * 70)
+lines.append("END OF REPORT")
+lines.append("=" * 70)
+return "\n".join(lines)
+
+def create_report(folder_path, output_path=None):
+"""Main function"""
+# Generate treeview
+treeview = generate_treeview(folder_path)
+# Scan and collect stats
+stats = scan_folder(folder_path)
+# Generate report
+report = generate_report(folder_path, stats, treeview)
+# Save
+if output_path:
+with open(output_path, 'w', encoding='utf-8') as f:
+
+f.write(report)
+print(f"Report saved: {output_path}")
+return report
+
+# Run
+if __name__ == "__main__":
+report = create_report("/Users/michele/Drive/Trading", "drive_report.txt")
+print(report)
