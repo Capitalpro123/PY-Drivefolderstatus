@@ -1,0 +1,123 @@
+======================================================================
+DRIVE FOLDER STATUS REPORT
+======================================================================
+Root: /Users/michele/Drive/Trading
+Generated: 2025-01-15 14:32:18
+
+--------------------------------------------------
+SUMMARY
+--------------------------------------------------
+  Total Folders: 24
+  Total Files: 347
+  Total Size: 2.84 GB
+
+--------------------------------------------------
+FOLDER STRUCTURE
+--------------------------------------------------
+📁 Trading/
+├── 📁 Archive/
+│   ├── 📁 2023/
+│   │   ├── 📄 Q1_results.csv
+│   │   ├── 📄 Q2_results.csv
+│   │   ├── 📄 Q3_results.csv
+│   │   ├── 📄 Q4_results.csv
+│   │   └── 📄 yearly_summary.pdf
+│   └── 📁 2024/
+│       ├── 📄 Q1_results.csv
+│       ├── 📄 Q2_results.csv
+│       ├── 📄 Q3_results.csv
+│       ├── 📄 Q4_results.csv
+│       └── 📄 yearly_summary.pdf
+├── 📁 Backtest/
+│   ├── 📁 Results/
+│   │   ├── 📄 AUDUSD_2024_Q1.csv
+│   │   ├── 📄 AUDUSD_2024_Q2.csv
+│   │   ├── 📄 EURUSD_2024_Q1.csv
+│   │   ├── 📄 EURUSD_2024_Q2.csv
+│   │   ├── 📄 EURUSD_2024_Q3.csv
+│   │   ├── 📄 EURUSD_2024_Q4.csv
+│   │   ├── 📄 GBPUSD_2024_Q1.csv
+│   │   ├── 📄 GBPUSD_2024_Q2.csv
+│   │   ├── 📄 GBPUSD_2024_Q3.csv
+│   │   ├── 📄 GBPUSD_2024_Q4.csv
+│   │   ├── 📄 USDJPY_2024_Q1.csv
+│   │   └── 📄 USDJPY_2024_Q2.csv
+│   └── 📁 Scripts/
+│       ├── 📄 analysis.py
+│       ├── 📄 backtest_runner.py
+│       └── 📄 report_generator.py
+├── 📁 Data/
+│   ├── 📁 Exports/
+│   │   ├── 📄 tradingview_export_apr.csv
+│   │   ├── 📄 tradingview_export_feb.csv
+│   │   ├── 📄 tradingview_export_jan.csv
+│   │   └── 📄 tradingview_export_mar.csv
+│   └── 📁 OHLC/
+│       ├── 📄 AUDUSD_1D.csv
+│       ├── 📄 AUDUSD_1H.csv
+│       ├── 📄 AUDUSD_4H.csv
+│       ├── 📄 EURUSD_1D.csv
+│       ├── 📄 EURUSD_1H.csv
+│       ├── 📄 EURUSD_4H.csv
+│       ├── 📄 GBPUSD_1D.csv
+│       ├── 📄 GBPUSD_1H.csv
+│       ├── 📄 GBPUSD_4H.csv
+│       ├── 📄 USDJPY_1D.csv
+│       ├── 📄 USDJPY_1H.csv
+│       └── 📄 USDJPY_4H.csv
+├── 📁 Reports/
+│   ├── 📄 monthly_2024_12.pdf
+│   ├── 📄 weekly_2025_01.pdf
+│   ├── 📄 weekly_2025_02.pdf
+│   └── 📄 yearly_2024.pdf
+└── 📁 Strategies/
+    ├── 📁 MeanReversion/
+    │   ├── 📄 config.json
+    │   └── 📄 parameters.txt
+    └── 📁 Momentum/
+        ├── 📄 config.json
+        ├── 📄 notes.md
+        └── 📄 parameters.txt
+
+--------------------------------------------------
+FILES BY TYPE
+--------------------------------------------------
+  .csv              198 files         1.92 GB
+  .json              45 files        12.34 KB
+  .py                32 files        87.56 KB
+  .pdf               28 files       456.78 MB
+  .txt               24 files         8.92 KB
+  .md                12 files         4.56 KB
+  .png                8 files        34.21 MB
+
+--------------------------------------------------
+LARGEST FILES
+--------------------------------------------------
+       234.56 MB  EURUSD_2024_1M.csv
+       187.23 MB  GBPUSD_2024_1M.csv
+       156.78 MB  USDJPY_2024_1M.csv
+       134.45 MB  AUDUSD_2024_1M.csv
+        98.34 MB  yearly_2024.pdf
+        87.65 MB  EURUSD_2024_5M.csv
+        76.54 MB  GBPUSD_2024_5M.csv
+        65.43 MB  backtest_full_results.csv
+        54.32 MB  optimization_output.csv
+        43.21 MB  NZDUSD_2024_1M.csv
+
+--------------------------------------------------
+RECENTLY MODIFIED
+--------------------------------------------------
+  2025-01-15 14:28  strategy_params.json
+  2025-01-15 13:45  EURUSD_backtest_results.csv
+  2025-01-15 11:20  trade_log.txt
+  2025-01-14 22:15  weekly_2025_02.pdf
+  2025-01-14 18:30  analysis.py
+  2025-01-14 16:45  config.json
+  2025-01-13 20:10  optimization_output.csv
+  2025-01-13 15:30  notes.md
+  2025-01-12 23:45  EURUSD_1H.csv
+  2025-01-12 19:20  backtest_runner.py
+
+======================================================================
+END OF REPORT
+======================================================================
